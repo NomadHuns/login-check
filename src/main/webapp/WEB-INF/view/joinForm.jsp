@@ -14,7 +14,7 @@
             <h1>회원가입 페이지</h1>
             <hr>
             <form action="/join" method="post" onsubmit="return valid()">
-                <input id="username" type="text" name="username" placeholder="Enter username"><br>
+                <input id="username" id="username" type="text" name="username" placeholder="Enter username"><br>
                 <button type="button" onclick="sameCheck()">유저네임 중복체크</button>
                 <br>
                 <input type="password" name="password" placeholder="Enter password"><br>
@@ -24,6 +24,10 @@
 
             <script>
                 let check = false;
+
+                $("#username").keydown(() => {
+                    check = false;
+                })
 
                 function valid() {
                     if (check == true) {
@@ -42,7 +46,9 @@
                     })
                         .done((res) => {
                             alert(res.msg);
-                            check = res.data;
+                            if (res.data == true) {
+                                check = res.data;
+                            }
                         })
                         .fail((err) => { });
                 }
